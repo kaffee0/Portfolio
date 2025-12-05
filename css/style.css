@@ -30,7 +30,7 @@ header {
     z-index: 9999;
     transition: all 0.15s ease;
     transform: translate(-50%, -50%);
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgNTUyIDUzNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48aW1hZ2UgaHJlZj0iZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFoMEFBQUlNQ0FZQUFBQlI2aDdaQUFBQUNYQklXWE1BQUdWS3c0YkFBQWdBRWxFUVZSNG51MTllWndkUlJYOXY2Qm==Jyg');
+    background-image: url('assets/svg/flower-cursor.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
