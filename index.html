@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>Figma Replica</title>
-<style>
-  body {
-    background: #110959;
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 209.26px);
-    grid-template-rows: repeat(3, 172.34px);
-    gap: 50px;
-  }
-
-  .tile {
-    width: 209.26px;
-    height: 172.34px;
-    background: #B03537;
-    border-radius: 80px;    /* ← Figma の角丸そのまま */
-    box-sizing: border-box;
-  }
-
-  /* 真ん中だけ強調（Figma の光は後で調整可能） */
-  .tile.active {
-    border: 4px solid #57B8FF;
-    box-shadow: 0 0 30px rgba(87,184,255,0.8);
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAE FEURING - Portfolio Vending Machine</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- カスタムカーソル -->
+    <div class="cursor">
+        <img src="flower-cursor.svg" alt="" style="width: 100%; height: 100%;">
+    </div>
+    <div class="cursor-dot"></div>
 
-<div class="grid">
-  <div class="tile"></div>
-  <div class="tile"></div>
-  <div class="tile"></div>
-  <div class="tile"></div>
+    <!-- パーティクル -->
+    <div class="particles" id="particles"></div>
 
-  <div class="tile"></div>
-  <div class="tile"></div>
-  <div class="tile active"></div>
-  <div class="tile"></div>
+    <!-- 自販機本体 -->
+    <div class="main-container">
+        <!-- ハンバーガーメニュー -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
 
-  <div class="tile"></div>
-  <div class="tile"></div>
-  <div class="tile"></div>
-  <div class="tile"></div>
-</div>
+        <!-- 中央上部のロゴ -->
+        <img src="name.svg" alt="KAE FEURING PORTFOLIO" class="brand-logo">
 
+        <!-- グリッド（JSで自動生成） -->
+        <div class="grid"></div>
+
+        <!-- インフォディスプレイ
+        <div class="info-display">
+            <div class="info-text">▶ SELECT YOUR ITEM ◀</div>
+        </div> -->
+    </div>
+
+    <!-- モーダル -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">🎮</div>
+                <h2 class="modal-title" id="modalTitle">PROJECT NAME</h2>
+                <div class="modal-subtitle" id="modalSubtitle">Category</div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                プロジェクトの詳細がここに表示されます。
+            </div>
+            <div class="modal-tags" id="modalTags"></div>
+            <button class="close-btn" id="closeBtn">×</button>
+        </div>
+    </div>
+
+    <script src="projects.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
