@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         trail.style.left = x + 'px';
         trail.style.top = y + 'px';
         trail.style.transform = 'translate(-50%, -50%)';
-        trail.innerHTML = `<img src="flower-cursor.svg" style="width: 100%; height: 100%;">`;
+        trail.innerHTML = `<img src="assets/svg/flower-cursor.svg" style="width: 100%; height: 100%;">`;
         document.body.appendChild(trail);
         setTimeout(() => trail.remove(), 900);
     }

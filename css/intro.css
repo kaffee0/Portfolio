@@ -1,0 +1,136 @@
+/* イントロアニメーション用CSS */
+
+/* イントロコンテナ */
+.intro-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #110959 0%, #1a0d70 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.intro-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* SVGラッパー */
+.svg-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+svg {
+    width: 80vw;
+    height: auto;
+    max-height: 50vh;
+    margin: 0;
+    display: block;
+}
+
+#svg-animated {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#svg-final {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 手書き風アニメーション */
+#svg-animated path, #svg-animated rect {
+    fill: none;
+    stroke: #57B8FF;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(87, 184, 255, 0.6));
+}
+
+#svg-final path {
+    fill: #57B8FF;
+    stroke: #57B8FF;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(87, 184, 255, 0.6));
+}
+
+/* 描画アニメーション */
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* fillアニメーション */
+@keyframes fillText {
+    from {
+        fill: none;
+    }
+    to {
+        fill: #57B8FF;
+    }
+}
+
+/* フェードアウト */
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+/* フェードイン */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* 看板持ち上げアニメーション */
+@keyframes liftUp {
+    from {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        top: 80px;
+        left: 50%;
+        transform: translate(-50%, 0) scale(0.4);
+    }
+}
+
+/* ヘッダーロゴ（アニメーション後） */
+#header-logo {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, 0) scale(0.4);
+    z-index: 9999;
+    width: 80vw;
+    max-height: 50vh;
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(87, 184, 255, 0.6));
+    opacity: 0;
+}
+
+#header-logo.visible {
+    opacity: 1;
+}
