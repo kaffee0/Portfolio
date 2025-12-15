@@ -59,8 +59,9 @@ function initIntroAnimation() {
         // 自販機をせり上がらせる
         mainContainer.style.transform = 'translateY(0)';
         
-        // ヘッダーロゴを表示
+        // svgFinalをフェードアウト＆ヘッダーロゴを表示
         setTimeout(() => {
+            svgFinal.style.animation = 'fadeOut 0.5s ease-in-out forwards';
             headerLogo.classList.add('visible');
         }, 1000);
         
@@ -70,7 +71,7 @@ function initIntroAnimation() {
             setTimeout(() => {
                 introContainer.style.display = 'none';
             }, 500);
-        }, 1000);
+        }, 1500);
     }, drawComplete + 1500);
 }
 
