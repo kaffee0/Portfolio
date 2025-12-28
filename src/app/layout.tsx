@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, M_PLUS_Rounded_1c, Rampart_One } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +10,20 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const mPlusRounded = M_PLUS_Rounded_1c({
+  weight: ["300", "400", "500", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-mplus-rounded",
+  display: "swap",
+});
+
+const rampartOne = Rampart_One({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-rampart-one",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${mPlusRounded.variable} ${rampartOne.variable} antialiased`}
       >
         {children}
       </body>
