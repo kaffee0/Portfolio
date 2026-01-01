@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono, M_PLUS_Rounded_1c, Rampart_One } from "next/font/google";
-import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,24 +24,22 @@ const rampartOne = Rampart_One({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Portfolio - 台湾レトロ",
-  description: "懐かしい台湾の雰囲気で作品を紹介するポートフォリオサイト",
-};
-
-export default function RootLayout({
+export default function GalleryLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${mPlusRounded.variable} ${rampartOne.variable} antialiased`}
         suppressHydrationWarning
         style={{
-          background: '#156a1e',
+          background: '#5a9a3e',
           minHeight: '100vh',
+          overflow: 'hidden',
+          margin: 0,
+          padding: 0,
         }}
       >
         {children}

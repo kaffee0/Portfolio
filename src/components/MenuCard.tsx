@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 interface MenuCardProps {
   title: string;
+  kanji: string;
   price: string;
   imageUrl?: string;
   starColor: 'yellow' | 'blue' | 'red';
@@ -16,6 +17,7 @@ interface MenuCardProps {
 
 export const MenuCard: React.FC<MenuCardProps> = ({
   title,
+  kanji,
   price,
   imageUrl,
   starColor,
@@ -25,142 +27,196 @@ export const MenuCard: React.FC<MenuCardProps> = ({
   spicy,
 }) => {
   const starColors = {
-    yellow: '#FFD700',
-    blue: '#00BFFF',
-    red: '#FF4500',
+    yellow: { main: '#D4A574', glow: '#C89B5C' },
+    blue: { main: '#8B9474', glow: '#6B7456' },
+    red: { main: '#A85C4A', glow: '#C97B63' },
   };
 
-  const borderColors = {
-    yellow: '#FFD700',
-    blue: '#00BFFF',
-    red: '#FF4500',
+  const cardBackgrounds = {
+    yellow: 'linear-gradient(135deg, #E8D5C4 0%, #D4C5B0 50%, #C8B79C 100%)',
+    blue: 'linear-gradient(135deg, #D4C5B0 0%, #C0B298 50%, #A89E88 100%)',
+    red: 'linear-gradient(135deg, #D8BFB0 0%, #C8A898 50%, #B89080 100%)',
   };
 
   return (
     <motion.div
-      className="relative overflow-hidden h-full"
+      className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(to bottom, #C0C0C0 0%, #E8E8E8 100%)',
-        border: `6px solid ${borderColors[starColor]}`,
-        borderRadius: '8px',
-        padding: '8px',
+        aspectRatio: '406/535',
+        width: '100%',
+        background: cardBackgrounds[starColor],
+        padding: '20px',
+        border: '4px solid #8B6F47',
+        borderRadius: '12px',
+        boxShadow: `
+          0 8px 16px rgba(0,0,0,0.4),
+          inset 0 1px 0 rgba(255,255,255,0.1),
+          inset 0 -2px 4px rgba(0,0,0,0.2)
+        `,
       }}
       whileHover={{
         scale: 1.05,
         y: -10,
-        rotate: [0, -1, 1, -1, 0],
-        boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+        boxShadow: `
+          0 16px 32px rgba(0,0,0,0.5),
+          inset 0 1px 0 rgba(255,255,255,0.15),
+          inset 0 -2px 4px rgba(0,0,0,0.25)
+        `,
+        rotate: [0, -1, 1, 0],
         transition: { duration: 0.3 }
       }}
       whileTap={{ scale: 0.98 }}
     >
-      {/* グリーンタイル背景 */}
+      {/* ヴィンテージテクスチャオーバーレイ */}
       <div
-        className="taiwan-tile-bg relative overflow-hidden"
+        className="absolute inset-0"
         style={{
-          borderRadius: '4px',
-          padding: '12px',
+          background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 2px)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
         }}
       >
-        {/* スターバースト */}
-        <motion.div
-          className="absolute top-4 left-4 z-10"
-          style={{
-            width: '80px',
-            height: '80px',
-          }}
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{
-            rotate: {
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear"
-            },
-            scale: {
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }
-          }}
-        >
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <polygon
-              points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"
-              fill={starColors[starColor]}
-              stroke={starColor === 'yellow' ? '#FFA500' : starColors[starColor]}
-              strokeWidth="2"
-            />
-          </svg>
-        </motion.div>
+          {/* タイトル - レトロサイン風 */}
+          <div className="mb-3">
+            <h3
+              className="font-black leading-tight"
+              style={{
+                fontFamily: 'var(--font-rampart-one)',
+                fontSize: '18px',
+                color: '#FFE4B5',
+                textShadow: `
+                  0 0 8px #D4A574,
+                  0 0 12px #C89B5C,
+                  -2px -2px 0 #5A4A2F,
+                  2px -2px 0 #5A4A2F,
+                  -2px 2px 0 #5A4A2F,
+                  2px 2px 0 #5A4A2F
+                `,
+                letterSpacing: '1px',
+              }}
+            >
+              {title}
+            </h3>
+            <p
+              className="font-black leading-tight mt-1"
+              style={{
+                fontFamily: 'var(--font-mplus-rounded)',
+                fontSize: '14px',
+                color: '#8B6F47',
+                textShadow: '1px 1px 1px rgba(255,255,255,0.3)',
+              }}
+            >
+              {kanji}
+            </p>
+          </div>
 
-        {/* 料理画像エリア */}
-        <div
-          className="relative mx-auto mb-3"
-          style={{
-            width: '140px',
-            height: '140px',
-            background: imageUrl ? 'transparent' : 'rgba(255,255,255,0.3)',
-            borderRadius: '8px',
-            border: '3px solid rgba(255,255,255,0.5)',
-          }}
-        >
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt={title}
-              className="w-full h-full object-cover rounded"
-            />
-          )}
+          {/* 画像エリア - ヴィンテージフレーム */}
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              flex: '0 0 auto',
+              background: 'linear-gradient(135deg, #6B5638 0%, #5A4A2F 100%)',
+              padding: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '180px',
+              border: '3px solid #8B6F47',
+              borderRadius: '8px',
+              boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)',
+            }}
+          >
+            {/* スターバースト - レトロスタイル */}
+            <motion.div
+              className="absolute z-10"
+              style={{
+                width: '70px',
+                height: '70px',
+                top: '30px',
+                left: '15px',
+                filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))',
+              }}
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                rotate: {
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear"
+                },
+                scale: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
+            >
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <defs>
+                  <filter id={`vintage-glow-${starColor}`}>
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <polygon
+                  points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"
+                  fill={starColors[starColor].main}
+                  stroke="#5A4A2F"
+                  strokeWidth="3"
+                  filter={`url(#vintage-glow-${starColor})`}
+                />
+              </svg>
+            </motion.div>
+
+            {/* 料理画像エリア */}
+            <div
+              className="relative"
+              style={{
+                width: '140px',
+                height: '140px',
+                background: imageUrl ? '#E8D5C4' : 'rgba(232,213,196,0.3)',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                border: '2px solid #8B6F47',
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
+              }}
+            >
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt={title}
+                  className="w-full h-full object-cover"
+                  style={{
+                    filter: 'sepia(0.2) contrast(1.1) brightness(0.95)',
+                  }}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* 味覚バー - レトロメーター */}
+          <div className="space-y-2 mt-4">
+            <FlavorBar label="■酸味" value={sour} color="#D4A574" />
+            <FlavorBar label="■甘味" value={sweet} color="#C97B63" />
+            <FlavorBar label="■塩味" value={salt} color="#8B9474" />
+            <FlavorBar label="■辛味" value={spicy} color="#A85C4A" />
+          </div>
         </div>
-
-        {/* タイトル */}
-        <h3
-          className="font-black text-center mb-2 leading-tight"
-          style={{
-            fontFamily: 'var(--font-rampart-one)',
-            fontSize: '18px',
-            color: '#FF0000',
-            textShadow: '-1px -1px 0 #FFD700, 1px -1px 0 #FFD700, -1px 1px 0 #FFD700, 1px 1px 0 #FFD700',
-            letterSpacing: '0.5px',
-          }}
-        >
-          {title}
-        </h3>
-
-        {/* 価格 */}
-        <div
-          className="text-center font-black mb-3"
-          style={{
-            fontSize: '20px',
-            color: '#FF0000',
-            textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-          }}
-        >
-          {price}
-        </div>
-
-        {/* 味覚バー */}
-        <div className="space-y-1">
-          <FlavorBar label="Sour" value={sour} color="#FFD700" />
-          <FlavorBar label="Sweet" value={sweet} color="#FF6B35" />
-          <FlavorBar label="Salt" value={salt} color="#FF4500" />
-          <FlavorBar label="Spicy" value={spicy} color="#D32F2F" />
-        </div>
-
-        {/* RECOMMENDEDバッジ */}
-        <motion.div
-          className="mt-2 text-center text-xs font-bold"
-          style={{ color: '#006400' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          ✓ RECOMMENDED
-        </motion.div>
-      </div>
     </motion.div>
   );
 };
@@ -175,24 +231,29 @@ const FlavorBar: React.FC<FlavorBarProps> = ({ label, value, color }) => {
   return (
     <div className="flex items-center gap-2">
       <span
-        className="text-xs font-bold"
+        className="text-[11px] font-bold"
         style={{
-          color: '#FF0000',
+          color: '#5A4A2F',
           minWidth: '45px',
-          textShadow: '1px 1px 0px rgba(255,255,255,0.5)',
+          fontFamily: 'var(--font-rampart-one)',
+          textShadow: '1px 1px 1px rgba(255,255,255,0.3)',
         }}
       >
-        ■{label}
+        {label}
       </span>
       <div
-        className="flex-1 h-2 rounded-full overflow-hidden"
-        style={{ background: 'rgba(255,255,255,0.3)' }}
+        className="flex-1 h-3 rounded overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, #5A4A2F 0%, #4A3A1F 100%)',
+          border: '2px solid #8B6F47',
+          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.4)',
+        }}
       >
         <motion.div
           className="h-full"
           style={{
-            background: color,
-            boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+            background: `linear-gradient(90deg, ${color} 0%, ${color}dd 100%)`,
+            boxShadow: `inset 0 1px 2px rgba(255,255,255,0.2), 0 0 4px ${color}`,
           }}
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
@@ -203,6 +264,15 @@ const FlavorBar: React.FC<FlavorBarProps> = ({ label, value, color }) => {
           }}
         />
       </div>
+      <span
+        className="text-[10px] font-bold min-w-[30px] text-right"
+        style={{
+          color: '#6B5638',
+          fontFamily: 'var(--font-mplus-rounded)',
+        }}
+      >
+        {value}
+      </span>
     </div>
   );
 };

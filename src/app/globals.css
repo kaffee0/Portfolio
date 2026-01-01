@@ -1,51 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #1A2E1D;
-  --primary-light: #2A4E3D;
-  --primary-dark: #0F1A11;
-  --secondary: #B07999;
-  --secondary-light: #C899B0;
-  --secondary-dark: #9A6082;
-  --accent: #490019;
-  --accent-light: #6A1A29;
-  --accent-dark: #2A000D;
-  --background: #FAFAFA;
-  --surface: #FFFFFF;
-  --text: #1A2E1D;
-  --text-muted: #6B7B6E;
+  /* インダストリアル・コンソール用のカラー定義 */
+  --matrix-blue: #1985ff;
+  --accent-orange: #FF6347; /* tomato */
+  --console-grey: #EBE4E2;
+  --panel-bg: #CACACA;
+  --text-black: #101010;
 }
 
 @theme inline {
-  --color-primary: var(--primary);
-  --color-primary-light: var(--primary-light);
-  --color-primary-dark: var(--primary-dark);
-  --color-secondary: var(--secondary);
-  --color-secondary-light: var(--secondary-light);
-  --color-secondary-dark: var(--secondary-dark);
-  --color-accent: var(--accent);
-  --color-accent-light: var(--accent-light);
-  --color-accent-dark: var(--accent-dark);
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-text: var(--text);
-  --color-text-muted: var(--text-muted);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-matrix-blue: var(--matrix-blue);
+  --color-accent-orange: var(--accent-orange);
+  --color-console-grey: var(--console-grey);
 }
 
-body {
-  background: var(--background);
-  color: var(--text);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+/* ドットマトリクス背景 */
+.bg-dots {
+  background-color: #111111;
+  background-image: radial-gradient(circle, #262626 1px, transparent 1px);
+  background-position: 0 0;
+  background-size: 3px 3px;
 }
 
-/* 台湾レトロタイル背景 */
-.taiwan-tile-bg {
-  background-color: #2E7D32;
-  background-image:
-    linear-gradient(#4CAF50 2px, transparent 2px),
-    linear-gradient(90deg, #4CAF50 2px, transparent 2px);
-  background-size: 60px 60px;
-  background-position: -2px -2px;
+/* 走査線エフェクト */
+.scanline-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* 下部ティッカー用のアニメーション */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+/* スクロールバーを隠す設定 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
